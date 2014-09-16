@@ -81,8 +81,7 @@ end
 def package_installed?(name)
   cmd = Mixlib::ShellOut.new("#{::ChocolateyHelpers.chocolatey_executable} version #{name} -localonly #{cmd_args}")
   cmd.run_command
-
-  cmd.exitstatus == 0
+  !cmd.stdout.include?('No package found')
 end
 
 def package_exists?(name, version)
